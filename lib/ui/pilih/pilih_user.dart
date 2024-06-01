@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kalih_coffee/ui/kasir/login_kasir.dart';
+import 'package:kalih_coffee/ui/pelanggan/login_pelanggan.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,8 +15,8 @@ class MyApp extends StatelessWidget {
       ),
       home: PilihUser(),
       routes: {
-        '/login_admin': (context) => LoginAdminPage(),
-        '/login_pelanggan': (context) => LoginPelangganPage(),
+        '/login_kasir': (context) => LoginKasirApp(),
+        '/login_pelanggan': (context) => LoginPelangganApp(),
       },
     );
   }
@@ -38,7 +40,7 @@ class PilihUser extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/login_admin');
+                    Navigator.pushNamed(context, '/login_kasir');
                   },
                   child: Container(
                     width: 140, // Atur lebar background
@@ -52,13 +54,13 @@ class PilihUser extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
-                          'assets/images/kasir.png', // Sesuaikan dengan path gambar admin
+                          'assets/images/kasir.png', // Sesuaikan dengan path gambar kasir
                           width: 100,
                           height: 100,
                         ),
                         SizedBox(height: 10),
                         Text(
-                          'Admin',
+                          'Kasir',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
@@ -103,34 +105,6 @@ class PilihUser extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class LoginAdminPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Login Admin'),
-      ),
-      body: Center(
-        child: Text('Halaman Login Admin'),
-      ),
-    );
-  }
-}
-
-class LoginPelangganPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Login Pelanggan'),
-      ),
-      body: Center(
-        child: Text('Halaman Login Pelanggan'),
       ),
     );
   }
