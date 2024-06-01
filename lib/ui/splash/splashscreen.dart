@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kalih_coffee/ui/pelanggan/daftar_menu.dart';
-import 'package:kalih_coffee/ui/pilih/pilih_user.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -20,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(const Duration(milliseconds: 3000), () {});
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => const DaftarMenu()),
+      MaterialPageRoute(builder: (context) =>  DaftarMenu()),
     );
   }
 
