@@ -217,7 +217,7 @@ class DaftarMenu extends StatelessWidget {
                                     backgroundColor: Color(
                                         0xFF0E3822), // Button background color changed
                                     shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(),
+                                      borderRadius: BorderRadius.circular(10),
                                     ),
                                     fixedSize: Size(160, 0),
                                   ),
