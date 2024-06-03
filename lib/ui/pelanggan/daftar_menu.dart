@@ -1,238 +1,84 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(KalihApp());
 }
 
-class MyApp extends StatelessWidget {
+class KalihApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Kalih Menu',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: DaftarMenu(),
+      home: MenuPage(),
     );
   }
 }
 
-class DaftarMenu extends StatelessWidget {
-  final List<Map<String, String>> categories = [
-    {'name': 'Coffee', 'image': 'assets/images/coffee.png'},
-    {'name': 'Non-Coffee', 'image': 'assets/images/non_caffee.png'},
-    {'name': 'Noodle', 'image': 'assets/images/noodle.png'},
-    {'name': 'Rice', 'image': 'assets/images/rice.png'},
-    {'name': 'Snack', 'image': 'assets/images/snack.png'},
-  ];
-
-  final List<Map<String, dynamic>> menuItems = [
-    {
-      'name': 'Rice Bowl Chicken Sambal Matah',
-      'price': 25000,
-      'image': 'assets/images/rice_bowl.png'
-    },
-    {
-      'name': 'Rice Bowl Chicken Sambal Matah',
-      'price': 100000,
-      'image': 'assets/images/rice_bowl.png'
-    },
-    {
-      'name': 'Rice Bowl Chicken Sambal Matah',
-      'price': 25000,
-      'image': 'assets/images/rice_bowl.png'
-    },
-    {
-      'name': 'Rice Bowl Chicken Sambal Matah',
-      'price': 100000,
-      'image': 'assets/images/rice_bowl.png'
-    },
-  ];
-
+class MenuPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF5F3E5), // Background color changed
+      appBar: AppBar(
+        backgroundColor: Color.fromRGBO(14, 56, 34, 1.0),
+        title: Text(
+          'Selamat datang di Kalih!',
+          style: TextStyle(
+              color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.shopping_cart,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              // Handle cart action
+            },
+          ),
+        ],
+      ),
       body: Column(
         children: [
-          // Green Background for Title
-          Container(
-            decoration: BoxDecoration(
-              color: Color(0xFF0E3822), // Changed green color
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(20), // Corner round bawah kiri
-                bottomRight: Radius.circular(20), // Corner round bawah kanan
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Color.fromRGBO(14, 56, 34, 1.0),
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(15.0),
+                  bottomRight: Radius.circular(15.0),
+                ),
               ),
-            ),
-            width: double.infinity,
-            padding: EdgeInsets.symmetric(vertical: 16),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 16,
-                          top: 20), // Tambahkan padding di sebelah kiri
-                      child: Text(
-                        'Selamat datang di Kalih!',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          right: 16,
-                          top: 20), // Tambahkan padding di sebelah kanan
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => CartPage()),
-                          );
-                        },
-                        child: Image.asset(
-                          'assets/icon/ic_keranjang.png', // Ganti dengan path gambar Anda
-                          width: 24, // Sesuaikan lebar gambar
-                          height: 24, // Sesuaikan tinggi gambar
-                          color: Colors.white, // Warna gambar
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 5),
-                Container(
-                  height: 100,
-                  padding: EdgeInsets.symmetric(vertical: 4),
-                  // Removed color property
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: categories.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: EdgeInsets.fromLTRB(
-                            16, 16, 2, 0), // Tambahkan padding kiri
-                        child: GestureDetector(
-                          onTap: () {
-                            // Handle category tap
-                          },
-                          child: Column(
-                            children: [
-                              Image.asset(
-                                categories[index]['image']!,
-                                width: 58,
-                                height: 58,
-                              ),
-                              //SizedBox(height: 0),
-                              Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 4.0, vertical: 0),
-                                child: Text(
-                                  categories[index]['name']!,
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 10),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ],
+              child: Row(
+                children: [
+                  CategoryButton('Coffee', 'assets/images/coffee.png'),
+                  CategoryButton('Non-Coffee', 'assets/images/non-coffee.png'),
+                  CategoryButton('Noodle', 'assets/images/noodle.png'),
+                  CategoryButton('Rice', 'assets/images/rice.png'),
+                  CategoryButton('Snack', 'assets/images/snack.png'),
+                ],
+              ),
             ),
           ),
-
-          // Menu Items
           Expanded(
             child: GridView.builder(
-              padding: EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(10.0),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                childAspectRatio: 0.65,
+                childAspectRatio: 0.7,
+                crossAxisSpacing: 10.0,
+                mainAxisSpacing: 20.0, // Tambahkan jarak vertikal antar item
               ),
-              itemCount: menuItems.length,
+              itemCount: 6, // Sesuaikan jumlah item berdasarkan data Anda
               itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => DetailPage(menuItems[index]),
-                    );
-                  },
-                  child: Card(
-                    elevation: 2,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    color: Color(0xFFD6CDA4), // Background color
-                    child: Column(
-                      children: [
-                        ClipRRect(
-                          borderRadius:
-                              BorderRadius.vertical(top: Radius.circular(10)),
-                          child: Image.asset(
-                            menuItems[index]['image']!,
-                            height: 120,
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        SizedBox(height: 8), // Margin bottom for image
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                menuItems[index]['name']!,
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold),
-                              ),
-                              SizedBox(
-                                  height: 8), // Margin bottom for text name
-                              Text(
-                                'Rp ${menuItems[index]['price']}.00',
-                                style: TextStyle(
-                                    color: Colors
-                                        .black), // Margin bottom for price
-                              ),
-                              SizedBox(
-                                  height:
-                                      8.0), // Add some space before the button
-                              Center(
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    // Handle add to cart
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Color(
-                                        0xFF0E3822), // Button background color changed
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    fixedSize: Size(160, 0),
-                                  ),
-                                  child: Text(
-                                    'Tambah +',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                return MenuItem(
+                  title: 'Rice Bowl Chicken Sambal Matah',
+                  price: index % 2 == 0 ? 25000 : 100000,
+                  imageUrl: 'assets/images/rice_bowl.png',
                 );
               },
             ),
@@ -243,50 +89,244 @@ class DaftarMenu extends StatelessWidget {
   }
 }
 
-class DetailPage extends StatelessWidget {
-  final Map<String, dynamic> menuItem;
+class CategoryButton extends StatelessWidget {
+  final String title;
+  final String imageUrl;
 
-  DetailPage(this.menuItem);
+  CategoryButton(this.title, this.imageUrl);
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image.asset(menuItem['image']!, width: 100, height: 100),
-            SizedBox(height: 16),
-            Text(menuItem['name']!, style: TextStyle(fontSize: 24)),
-            SizedBox(height: 8),
-            Text('Rp ${menuItem['price']}.00'),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('Close'),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 4.4),
+      child: Column(
+        children: [
+          Text(
+            title,
+            style: TextStyle(color: Colors.white, fontSize: 12),
+          ),
+          Container(
+            padding: EdgeInsets.all(3.5),
+            decoration: BoxDecoration(
+              color: Color.fromRGBO(14, 56, 34, 1.0),
+              borderRadius: BorderRadius.circular(8.0),
             ),
-          ],
-        ),
+            child: Image.asset(
+              imageUrl,
+              width: 50,
+              height: 50,
+            ),
+          ),
+          SizedBox(height: 2), // Tambahkan jarak antara gambar dan teks
+        ],
       ),
     );
   }
 }
 
-class CartPage extends StatelessWidget {
+class MenuItem extends StatefulWidget {
+  final String title;
+  final int price;
+  final String imageUrl;
+
+  MenuItem({required this.title, required this.price, required this.imageUrl});
+
+  @override
+  _MenuItemState createState() => _MenuItemState();
+}
+
+class _MenuItemState extends State<MenuItem> {
+  int _quantity = 1;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Keranjang'),
+    return Card(
+      color: Color.fromRGBO(
+          214, 205, 164, 1), // Setel warna latar belakang di sini
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
       ),
-      body: Center(
-        child: Text('Keranjang belanja Anda kosong.'),
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(8.0), // Tambahkan padding di sekitar gambar
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(15.0),
+              child: Image.asset(
+                widget.imageUrl,
+                width: double.infinity,
+                height: 100,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.0),
+            child: Text(
+              widget.title,
+              style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.left,
+            ),
+          ),
+          SizedBox(height: 3), // Tambahkan jarak
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.0),
+            child: Text(
+              'Rp ${widget.price.toStringAsFixed(2)}',
+              style: TextStyle(fontSize: 10.0),
+              textAlign: TextAlign.left,
+            ),
+          ),
+          Spacer(), // Dorong tombol ke bawah
+          Padding(
+            padding: EdgeInsets.only(bottom: 5.0),
+            child: ElevatedButton(
+              onPressed: () {
+                showModalBottomSheet(
+                  isScrollControlled:
+                      true, // Tambahkan ini agar pop-up dapat di-scroll
+                  context: context,
+                  builder: (BuildContext context) {
+                    return SingleChildScrollView(
+                      // Tambahkan SingleChildScrollView di sini
+                      child: Container(
+                        padding: EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: Color.fromRGBO(214, 205, 164, 1),
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(
+                                20), // Border radius untuk bagian atas
+                            topRight: Radius.circular(
+                                20), // Border radius untuk bagian atas
+                          ),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Gambar produk
+                            Center(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(15.0),
+                                child: Image.asset(
+                                  widget.imageUrl,
+                                  width: double.infinity,
+                                  height: 150,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 10),
+                            // Nama produk
+                            Text(
+                              widget.title,
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: 5),
+                            // Deskripsi produk (contoh)
+                            Text(
+                              'Deskripsi produk',
+                              style: TextStyle(fontSize: 14),
+                            ),
+                            SizedBox(height: 10),
+                            // Harga produk
+                            Text(
+                              'Rp ${widget.price.toStringAsFixed(2)}',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            SizedBox(height: 10),
+                            // Catatan untuk penjual (contoh)
+                            Row(
+                              children: [
+                                Icon(Icons
+                                    .note), // Tambahkan ikon catatan di sini
+                                SizedBox(
+                                    width:
+                                        5), // Tambahkan jarak horizontal antara ikon dan teks
+                                Text(
+                                  'Catatan untuk penjual: ',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            TextField(
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                              ),
+                            ),
+                            SizedBox(height: 10),
+                            // Jumlah dibeli
+                            Row(
+                              children: [
+                                IconButton(
+                                  icon: Icon(Icons.remove),
+                                  onPressed: () {
+                                    // Implementasi pengurangan jumlah
+                                    setState(() {
+                                      if (_quantity > 1) {
+                                        _quantity--;
+                                      }
+                                    });
+                                  },
+                                ),
+                                Text(
+                                  '$_quantity', // Tampilkan jumlah item
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.add),
+                                  onPressed: () {
+                                    // Implementasi penambahan jumlah
+                                    setState(() {
+                                      _quantity++;
+                                    });
+                                  },
+                                ),
+                                SizedBox(width: 60),
+                                // Tombol tambah ke keranjang
+                                ElevatedButton(
+                                  onPressed: () {
+                                    // Tangani aksi tambah ke keranjang
+                                  },
+                                  child: Text(
+                                    'Tambah ke keranjang',
+                                    style: TextStyle(
+                                        fontSize: 10, color: Colors.white),
+                                  ),
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Color.fromRGBO(14, 56, 34, 1.0)),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            // Isi pop-up
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ); // Tangani aksi tambah ke keranjang
+              },
+              child: Text(
+                'Tambah +',
+                style: TextStyle(color: Colors.white, fontSize: 10),
+                textAlign: TextAlign.center,
+              ),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(
+                    Color.fromRGBO(14, 56, 34, 1.0)),
+                fixedSize: MaterialStateProperty.all<Size>(
+                    Size(130, 12)), // Atur ukuran dengan angka height dan width
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
