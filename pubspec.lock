@@ -245,6 +245,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "14.2.1"
+<<<<<<< HEAD
   web:
     dependency: transitive
     description:
@@ -253,6 +254,8 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.1"
+=======
+>>>>>>> f5e8654fcef477a161fff342d92f9edabf5835f3
 sdks:
   dart: ">=3.3.2 <4.0.0"
   flutter: ">=3.18.0-18.0.pre.54"
