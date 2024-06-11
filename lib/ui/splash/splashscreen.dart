@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kalih_coffee/ui/pelanggan/daftar_menu.dart';
 import 'package:kalih_coffee/ui/pelanggan/keranjang.dart';
 import 'package:kalih_coffee/ui/pelanggan/transaksiselesai.dart';
+import 'package:kalih_coffee/ui/pelanggan/Struk.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -21,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(const Duration(milliseconds: 3000), () {});
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => TransaksiSelesai()),
+      MaterialPageRoute(builder: (context) => KonfirmasiPembayaran()),
     );
   }
 

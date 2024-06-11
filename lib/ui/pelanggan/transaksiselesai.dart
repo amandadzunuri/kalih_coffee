@@ -77,7 +77,7 @@ class CheckmarkPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
       ..color = Color(0xFF0E3822) // Dark green color
-      ..strokeWidth = 12
+      ..strokeWidth = 15
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round;
 
